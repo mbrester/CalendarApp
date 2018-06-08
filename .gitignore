@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/MikesCalendarApp2/App_Data/client_secret.json
+/MikesCalendarApp2/.credentials

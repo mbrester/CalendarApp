@@ -193,7 +193,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\client_secret.json" />
+    <Content Include="App_Data\client_secret.json" />
     <Content Include="client_secret.json" />
     <Content Include=".credentials\calendar-dotnet-quickstart.json\Google.Apis.Auth.OAuth2.Responses.TokenResponse-user" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
@@ -229,9 +229,7 @@
     <Content Include="Views\Home\EventDetail.cshtml" />
     <Content Include="Views\Home\AddEvent.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
