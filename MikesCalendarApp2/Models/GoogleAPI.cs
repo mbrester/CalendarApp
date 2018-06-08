@@ -163,7 +163,7 @@ namespace MikesCalendarApp2.Models
                 startDate.DateTime = start;
                 endDate.DateTime = end;
 
-                e.Summary = name;
+                e.Summary = name;da
                 e.Start = startDate;
                 e.End = endDate;
                 e.Description = details;
