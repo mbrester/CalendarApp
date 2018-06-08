@@ -24,7 +24,7 @@ namespace MikesCalendarApp2.Models
             UserCredential credential;
 
             using (var stream =
-                new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret.json"), FileMode.Open, FileAccess.Read))
+                new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret_New.json"), FileMode.Open, FileAccess.Read))
             {
                 string credPath = "";
                 credPath = Path.Combine(credPath, System.Web.Hosting.HostingEnvironment.MapPath("~/.credentials/calendar-dotnet-quickstart.json"));
@@ -70,7 +70,7 @@ namespace MikesCalendarApp2.Models
             UserCredential credential;
 
             using (var stream =
-                new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret.json"), FileMode.Open, FileAccess.Read))
+                new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret_New.json"), FileMode.Open, FileAccess.Read))
             {
                 string credPath = "";
                 credPath = Path.Combine(credPath, System.Web.Hosting.HostingEnvironment.MapPath("~/.credentials/calendar-dotnet-quickstart.json"));
@@ -119,7 +119,7 @@ namespace MikesCalendarApp2.Models
                 UserCredential credential;
 
                 using (var stream =
-                    new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret.json"), FileMode.Open, FileAccess.Read))
+                    new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret_New.json"), FileMode.Open, FileAccess.Read))
                 {
                     string credPath = "";
                     credPath = Path.Combine(credPath, System.Web.Hosting.HostingEnvironment.MapPath("~/.credentials/calendar-dotnet-quickstart.json"));
@@ -171,7 +171,7 @@ namespace MikesCalendarApp2.Models
                 UserCredential credential;
 
                 using (var stream =
-                    new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret.json"), FileMode.Open, FileAccess.Read))
+                    new FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~\\client_secret_New.json"), FileMode.Open, FileAccess.Read))
                 {
                     string credPath = "";
                     credPath = Path.Combine(credPath, System.Web.Hosting.HostingEnvironment.MapPath("~/.credentials/calendar-dotnet-quickstart.json"));
