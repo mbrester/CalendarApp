@@ -195,7 +195,6 @@
     </Content>
     <Content Include="App_Data\client_secret.json" />
     <Content Include="client_secret.json" />
-    <Content Include=".credentials\calendar-dotnet-quickstart.json\Google.Apis.Auth.OAuth2.Responses.TokenResponse-user" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
