@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "EventEdit";
+}
+
+<h2>EventEdit</h2>
+<div class="MainBody">
+    <form method="post">
+        <input type="datetime-local" name="StartDate" value="@ViewBag.e.Start.DateTime.ToString("yyyy-MM-ddTHH:mm")" /> <br />
+        <input type="datetime-local" name="EndDate" value="@ViewBag.e.End.DateTime.ToString("yyyy-MM-ddTHH:mm")" /><br />
+        <input type="text" name="Name" value="@ViewBag.e.Summary"/><br />
+        <input type="text" name="Details" value="@ViewBag.e.Description"/><br />
+        <input type="submit" name="CreateEvent" /><br />
+    </form>
+    <div class="Results"><h3>@ViewBag.results</h3></div>
+</div>
+
+

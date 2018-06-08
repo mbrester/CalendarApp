@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Get Bodied Nerd";
+    string eventTime = "";
+    string eventName = "";
+    int columnCounter = 0;
+    int rowCounter = 0;
+    string eventDay = "";
+    int dayCounter = 1;
+    int daysToSkip = 0;
+    int cellCount = 0;
+    string eventId = "";
+    DateTime currentDate = DateTime.Now;
+    DateTime endOfMonth = new DateTime(currentDate.Year,
+                                   ViewBag.currentMonth,
+                                   DateTime.DaysInMonth(currentDate.Year,
+                                                        ViewBag.currentMonth));
+    int lastDay = endOfMonth.Day;
+}
+
+<div class="MainBody" style="padding-top:50px;">
+    <div style="text-align:center" class="Month">
+        @{DateTime dtDate = new DateTime(currentDate.Year, ViewBag.currentMonth, 1);
+            string sMonthName = dtDate.ToString("MMM");
+            string sMonthFullName = dtDate.ToString("MMMM"); } <h1>@sMonthFullName</h1>
+        </div>
+        <div class="monthNav">
+            <div class="lastMonth" style="float:left;">
+                <form action="~/Home/Index?month=-1" method="post">
+                    <input type="submit" value="<<<" class="lastMonthButton" title="last Month" />
+                </form>
+            </div>
+            <div class="nextMonth" style="float:right">
+                <form action="~/Home/Index?month=1" method="post">
+                    <input type="submit" value=">>>" class="lastMonthButton" title="last Month" />
+                </form>
+            </div>
+
+        </div>
+        @{
+            var firstDayOfMonth = new DateTime(currentDate.Year, ViewBag.currentMonth, 1).DayOfWeek;
+            switch (firstDayOfMonth)
+            {
+                case (DayOfWeek.Monday):
+                    daysToSkip = 1;
+                    break;
+                case (DayOfWeek.Tuesday):
+                    daysToSkip = 2;
+                    break;
+                case (DayOfWeek.Wednesday):
+                    daysToSkip = 3;
+                    break;
+                case (DayOfWeek.Thursday):
+                    daysToSkip = 4;
+                    break;
+                case (DayOfWeek.Friday):
+                    daysToSkip = 5;
+                    break;
+                case (DayOfWeek.Saturday):
+                    daysToSkip = 6;
+                    break;
+
+            }
+
+        }
+
+        <table align="center" border="1">
+
+            @{
+
+
+                while (dayCounter <= lastDay)
+                {
+                    <tr>
+                        @{
+                            while (columnCounter < 7)
+                            {
+
+
+                                while (cellCount < daysToSkip)
+                                {
+
+                                    <td style="padding-left:5px;width:100px;height:100px;text-align: left;vertical-align: top !important;"></td>
+                                    columnCounter++;
+                                    cellCount++;
+                                }
+                                <td style="padding-left:5px;width:100px;height:100px;text-align: left;vertical-align: top !important;">
+                                    @{ if (dayCounter <= lastDay)
+                                        {
+                                            <div>
+                                                @dayCounter
+                                            </div>
+
+                                            foreach (var eventItem in ViewBag.events.Items)
+                                            {
+                                                var day = eventItem.Start.DateTime.ToString("dd");
+                                                if (dayCounter.ToString() == eventItem.Start.DateTime.ToString("dd").TrimStart(new Char[] { '0' }))
+                                                {
+                                                    eventTime = eventItem.Start.DateTime.ToString("MM/dd/yyyy");
+                                                    eventName = eventItem.Summary;
+                                                    eventId = eventItem.Id;
+
+                                                    <div style="padding-top:20px;"><a href="~/Home/EventDetails?eventID=@eventId">@eventName</a></div>
+                                                }
+                                                else
+                                                {
+
+                                                    eventTime = "";
+                                                    eventName = "";
+                                                }
+                                            }
+                                        }
+                                    }
+                                </td>
+
+                                columnCounter++;
+                                dayCounter++;
+                            }
+                            columnCounter = 0;
+                            rowCounter++;
+                        }
+                    </tr>
+                }
+            }
+        </table>
+    </div>

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "AddEvent";
+}
+
+<h2>Add Event</h2>
+<div class="MainBody">
+    <form method="post">
+        <input  type="datetime-local" name="StartDate" /> <br />
+        <input type="datetime-local" name="EndDate" /><br />
+        <input type="text" name="Name" /><br />
+        <input type="text" name="Details" /><br />
+        <input type="submit" name="CreateEvent" /><br />
+    </form>
+    <div class="Results"><h3>@ViewBag.results</h3></div>
+</div>
