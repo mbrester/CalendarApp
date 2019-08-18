@@ -8,7 +8,7 @@
     int dayCounter = 1;
     int daysToSkip = 0;
     int cellCount = 0;
-    string eventId = "";
+    int eventId = 0;
     DateTime currentDate = DateTime.Now;
     DateTime endOfMonth = new DateTime(currentDate.Year,
                                    ViewBag.currentMonth,
@@ -17,7 +17,7 @@
     int lastDay = endOfMonth.Day;
 }
 
-<div class="MainBody" style="padding-top:50px;">
+<div class="MainBody" style="padding-top:50px;width:100% !important;min-height:750px;background-image:url('http://brester.org/Background.jfif');background-size: cover;">
     <div style="text-align:center" class="Month">
         @{DateTime dtDate = new DateTime(currentDate.Year, ViewBag.currentMonth, 1);
             string sMonthName = dtDate.ToString("MMM");
@@ -63,7 +63,7 @@
 
         }
 
-        <table align="center" border="1">
+        <table align="center" border="1" style="border: 2px solid black; max-width:700px">
 
             @{
 
@@ -79,27 +79,27 @@
                                 while (cellCount < daysToSkip)
                                 {
 
-                                    <td style="padding-left:5px;width:100px;height:100px;text-align: left;vertical-align: top !important;"></td>
+                                    <td style="padding-left:5px;width:110px;height:110px;text-align: left;vertical-align: top !important;font-weight:bolder!important"></td>
                                     columnCounter++;
                                     cellCount++;
                                 }
-                                <td style="padding-left:5px;width:100px;height:100px;text-align: left;vertical-align: top !important;">
+                                <td style="padding-left:5px;width:110px;height:110px;text-align: left;vertical-align: top !important;font-weight:bolder!important">
                                     @{ if (dayCounter <= lastDay)
                                         {
-                                            <div>
+                                            <div style="font-weight:bolder!important">
                                                 @dayCounter
                                             </div>
 
-                                            foreach (var eventItem in ViewBag.events.Items)
+                                            foreach (var eventItem in ViewBag.events.events)
                                             {
-                                                var day = eventItem.Start.DateTime.ToString("dd");
-                                                if (dayCounter.ToString() == eventItem.Start.DateTime.ToString("dd").TrimStart(new Char[] { '0' }))
+                                                var day = eventItem.StartDate.ToString("dd");
+                                                if (dayCounter.ToString() == eventItem.StartDate.ToString("dd").TrimStart(new Char[] { '0' }))
                                                 {
-                                                    eventTime = eventItem.Start.DateTime.ToString("MM/dd/yyyy");
-                                                    eventName = eventItem.Summary;
-                                                    eventId = eventItem.Id;
+                                                    eventTime = eventItem.StartDate.ToString("MM/dd/yyyy");
+                                                    eventName = eventItem.EventName;
+                                                    eventId = eventItem.EventId;
 
-                                                    <div style="padding-top:20px;"><a href="~/Home/EventDetails?eventID=@eventId">@eventName</a></div>
+                                                    <div style="padding-top:20px;"><a href="~/Home/EventDetails?eventID=@eventId" style="color:coral;font-size:12px;font-weight:bolder!important">@eventName</a></div>
                                                 }
                                                 else
                                                 {

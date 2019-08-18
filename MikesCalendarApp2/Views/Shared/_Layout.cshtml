@@ -17,12 +17,23 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Mike's Calendar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                
+
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Add Event", "AddEvent", "Home")</li>
+                    
+                    @{
+                        if (Session["IsLoggedIn"].ToString() == "false")
+                        {
+                            <li style="float:right">@Html.ActionLink("Log in", "Login", "Home")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Add Event", "AddEvent", "Home")</li>
+                            <li style="float:right;padding-top:6%;color:white"> Welcome Mike </li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
@@ -31,7 +42,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Brester Org.</p>
+            <p>&copy; @DateTime.Now.Year - Shremp</p>
         </footer>
     </div>
 

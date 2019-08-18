@@ -6,10 +6,11 @@
 <h2>Add Event</h2>
 <div class="MainBody">
     <form method="post">
-        <input  type="datetime-local" name="StartDate" /> <br />
-        <input type="datetime-local" name="EndDate" /><br />
-        <input type="text" name="Name" /><br />
-        <input type="text" name="Details" /><br />
+        <h5>Stream Start Date:</h5><input type="datetime-local" name="StartDate" /> <br /><br />
+         <h5>Stream End Date:</h5><input type="datetime-local" name="EndDate" /><br /><br />
+         <h5>Stream Name:</h5><input type="text" name="Name" /><br /><br />
+         <h5>Stream Description:</h5><input type="text" name="Details" /><br /><br />
+        <h5>Stream Game</h5><input type="text" name="Game" /><br /><br />
         <input type="submit" name="CreateEvent" /><br />
     </form>
     <div class="Results"><h3>@ViewBag.results</h3></div>

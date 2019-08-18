@@ -3,13 +3,21 @@
     ViewBag.Title = "EventDetail";
 }
 
-<h2>@ViewBag.e.Summary</h2>
+<h2>@ViewBag.e.EventName</h2>
 <div class="MainBody">
+    <h5>@ViewBag.e.StreamGame</h5>
     <h5>Description: @ViewBag.e.Description</h5>
-    <h5>Start: @ViewBag.e.Start.DateTime</h5>
-    <h5>End: @ViewBag.e.End.DateTime</h5>
+    <h5>Start: @ViewBag.e.StartDate</h5>
+    <h5>End: @ViewBag.e.EndDate</h5>
+    <h5>End: @ViewBag.e.StreamGame</h5>
 
-    <a href="~/Home/EventEdit">Edit</a>
+    @{
+        if (Session["IsLoggedIn"].ToString() == "true")
+        {
+            <a href="~/Home/EventEdit">Edit Event</a>
+        }
+    }
+
 
 
 </div>

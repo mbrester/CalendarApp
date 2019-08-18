@@ -1,10 +1,10 @@
-﻿using Google.Apis.Calendar.v3.Data;
-using MikesCalendarApp2.Models;
+﻿using MikesCalendarApp2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace MikesCalendarApp2.Controllers
 {
@@ -17,13 +17,22 @@ namespace MikesCalendarApp2.Controllers
             public static readonly String CODE_PREFIX = "US-"; // Unmodifiable
             public static DateTime date = DateTime.Now;
             public static int month = date.Month;
+           
+                //["UserName"] = UserNameTextBox.Text;
 
 
         }
-        
+ 
 
         public ActionResult Index()
         {
+            if (Session["IsLoggedIn"] == null)
+            {
+                Session["IsLoggedIn"] = "false";
+            }
+            
+            MySQLDatabase sql = new MySQLDatabase();
+            sql.ConnectToServer();
             if (Request.QueryString["month"] != null)
             {
                 if (Request.QueryString["month"].ToString() == "-1")
@@ -36,13 +45,15 @@ namespace MikesCalendarApp2.Controllers
                 }
             }
             else
-            {               
-                   int  month2 = Globals.date.Month;
-                    Globals.month = month2;
+            {
+                int month2 = Globals.date.Month;
+                Globals.month = month2;
             }
-            GoogleAPI eventGetter = new GoogleAPI();
-            Events events = new Events();           
-            events = eventGetter.GetEvents(Globals.month);
+            // GoogleAPI eventGetter = new GoogleAPI();
+            MySQLDatabase eventGetter = new MySQLDatabase();
+
+            Events events = new Events();
+            events = eventGetter.GetEventsByMonth(Globals.month);
             ViewBag.currentMonth = Globals.month;
             ViewBag.events = events;
             return View();
@@ -62,7 +73,7 @@ namespace MikesCalendarApp2.Controllers
             }
             else
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             //Will never hit this.    
             return View();
@@ -70,17 +81,22 @@ namespace MikesCalendarApp2.Controllers
 
         public ActionResult AddEvent()
         {
+            if(Session["IsLoggedIn"].ToString() == "false")
+            {
+                Response.Redirect("~/Home/Index");
+            }
             return View();
         }
         [HttpPost]
-        public ActionResult AddEvent(string startDate, string endDate, string name, string details)
+        public ActionResult AddEvent(string startDate, string endDate, string name, string details, string game)
         {
-            GoogleAPI eventCreater = new GoogleAPI();
+            //  GoogleAPI eventCreater = new GoogleAPI();
+            MySQLDatabase eventGetter = new MySQLDatabase();
 
             DateTime start = Convert.ToDateTime(startDate);
             DateTime end = Convert.ToDateTime(endDate);
 
-            bool results = eventCreater.CreateEvent(start, end, name, details);
+            bool results = eventGetter.CreateEvent(start, end, name, details, game);
             if (results)
             {
                 ViewBag.results = "Event Added";
@@ -94,27 +110,35 @@ namespace MikesCalendarApp2.Controllers
 
         public ActionResult EventDetail()
         {
-            Event e = new Event();
-            if (Request.Cookies["EventId"] != null)
-            {
-                string eventId;         
-                { eventId = Request.Cookies["EventId"].Value.ToString(); }
-                GoogleAPI eventGetter = new GoogleAPI();
-                
-                e = eventGetter.GetEventById(eventId);
-            }
-            ViewBag.e = e;
-            return View();
-        }
-        
-        public ActionResult EventEdit()
-        {
+            
             Event e = new Event();
             if (Request.Cookies["EventId"] != null)
             {
                 string eventId;
                 { eventId = Request.Cookies["EventId"].Value.ToString(); }
-                GoogleAPI eventGetter = new GoogleAPI();
+                // GoogleAPI eventGetter = new GoogleAPI();
+                MySQLDatabase eventGetter = new MySQLDatabase();
+
+                e = eventGetter.GetEventById(eventId);
+            }
+            ViewBag.e = e;
+            return View();
+        }
+
+        public ActionResult EventEdit()
+        {
+            if (Session["IsLoggedIn"].ToString() == "false")
+            {
+                Response.Redirect("~/Home/Index");
+            }
+            Event e = new Event();
+            if (Request.Cookies["EventId"] != null)
+            {
+                string eventId;
+
+                { eventId = Request.Cookies["EventId"].Value.ToString(); }
+                // GoogleAPI eventGetter = new GoogleAPI();
+                MySQLDatabase eventGetter = new MySQLDatabase();
 
                 e = eventGetter.GetEventById(eventId);
             }
@@ -123,9 +147,10 @@ namespace MikesCalendarApp2.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult EventEdit(string startDate, string endDate, string name, string details)
+        public ActionResult EventEdit(string startDate, string endDate, string name, string details, string game)
         {
-            GoogleAPI eventEditor = new GoogleAPI();
+            // GoogleAPI eventEditor = new GoogleAPI();
+            MySQLDatabase eventEditor = new MySQLDatabase();
 
             DateTime start = Convert.ToDateTime(startDate);
             DateTime end = Convert.ToDateTime(endDate);
@@ -134,7 +159,7 @@ namespace MikesCalendarApp2.Controllers
             {
 
                 { eventId = Request.Cookies["EventId"].Value.ToString(); }
-                bool results = eventEditor.EditEvent(start, end, name, details, eventId);
+                bool results = eventEditor.EditEvent(start, end, name, details, eventId,game);
 
 
                 if (results)
@@ -149,9 +174,9 @@ namespace MikesCalendarApp2.Controllers
                 Event e = new Event();
                 if (Request.Cookies["EventId"] != null)
                 {
-                    GoogleAPI eventGetter = new GoogleAPI();
+                    ///   GoogleAPI eventGetter = new GoogleAPI();
 
-                    e = eventGetter.GetEventById(eventId);
+                    e = eventEditor.GetEventById(eventId);
                     ViewBag.e = e;
                 }
 
@@ -162,17 +187,18 @@ namespace MikesCalendarApp2.Controllers
             }
             return View();
         }
-        public ActionResult About()
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
-
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult Login(string UserName, string Password)
         {
-            ViewBag.Message = "Your contact page.";
-
+            if(UserName == "GoGoMic" & Password == "sixtyNine")
+            {
+                Session["IsLoggedIn"] = "true";
+            }
+            Response.Redirect("~/home/index");
             return View();
         }
     }
