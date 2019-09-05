@@ -9,6 +9,9 @@
     int daysToSkip = 0;
     int cellCount = 0;
     int eventId = 0;
+    string eventStartTime = "";
+    string eventEndTime = "";
+    string eventTitle = "";
     DateTime currentDate = DateTime.Now;
     DateTime endOfMonth = new DateTime(currentDate.Year,
                                    ViewBag.currentMonth,
@@ -96,10 +99,14 @@
                                                 if (dayCounter.ToString() == eventItem.StartDate.ToString("dd").TrimStart(new Char[] { '0' }))
                                                 {
                                                     eventTime = eventItem.StartDate.ToString("MM/dd/yyyy");
-                                                    eventName = eventItem.EventName;
+                                                    eventName = eventItem.StreamGame;
+                                                    eventTitle = eventItem.EventName;
                                                     eventId = eventItem.EventId;
+                                                    eventStartTime = eventItem.StartDate.ToString("hh: mm tt");
+                                                    eventEndTime = eventItem.EndDate.ToString("hh:mm tt");
 
-                                                    <div style="padding-top:20px;"><a href="~/Home/EventDetails?eventID=@eventId" style="color:coral;font-size:12px;font-weight:bolder!important">@eventName</a></div>
+
+                                                    <div style="padding-top:0px;"><a href="~/Home/EventDetails?eventID=@eventId" style="color:black;font-size:12px;"><span style="font-weight:bolder">@eventTitle</span> <br />@eventName<br/>@eventStartTime - <br /> @eventEndTime</a></div>
                                                 }
                                                 else
                                                 {

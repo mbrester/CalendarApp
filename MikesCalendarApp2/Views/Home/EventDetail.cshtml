@@ -1,15 +1,15 @@
 ﻿
 @{
-    ViewBag.Title = "EventDetail";
+    ViewBag.Title = ViewBag.e.EventName;
 }
 
-<h2>@ViewBag.e.EventName</h2>
+@*<h2>@ViewBag.e.EventName</h2>*@
+<h2>@ViewBag.e.StreamGame</h2>
 <div class="MainBody">
-    <h5>@ViewBag.e.StreamGame</h5>
+    
     <h5>Description: @ViewBag.e.Description</h5>
     <h5>Start: @ViewBag.e.StartDate</h5>
     <h5>End: @ViewBag.e.EndDate</h5>
-    <h5>End: @ViewBag.e.StreamGame</h5>
 
     @{
         if (Session["IsLoggedIn"].ToString() == "true")
